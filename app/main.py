@@ -1,9 +1,11 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from os import getenv
 from dotenv import load_dotenv
 from .agents.scraper import Scraper
+from .library.helpers import *
 
 
 q = r"site:linkedin.com/in/ OR site:linkedin.com/pub/ Warszawa (Angular OR React) -Manager -Lider"
@@ -14,13 +16,12 @@ PASS = getenv('PASS')
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    data = {
-        "page": "Home page"
-    }
+    data = openfile("home.md")
     return templates.TemplateResponse("page.html", {"request": request, "data": data})
 
 
