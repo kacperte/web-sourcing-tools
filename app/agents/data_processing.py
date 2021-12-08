@@ -1,7 +1,11 @@
+import json
+
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, RegexpTokenizer
 import string
 from nltk.probability import FreqDist
+from json2html import *
+
 
 
 class CommonWords:
@@ -59,8 +63,6 @@ class CommonWords:
 
         # Select n words from dict - n is quantity variable in class
         most_common = fdist.most_common(self.quantity)
-
+        #json_file = json.dumps(dict(most_common))
+        #html_content = json2html.convert(json=json_file)
         return dict(most_common)
-
-
-

@@ -11,4 +11,4 @@ def openfile(filename):
     data = {
         "text": html
     }
-    return data
+    return data["text"]

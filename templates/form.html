@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block page_content %}
+{% include 'include/sidebar.html' %}
+
+<form method="post">
+  <div class="form-group">
+
+
+    <input type="text" class="form-control" id="OR_words" aria-describedby="searchHelp" placeholder="OR"  name="string_or" >
+    <small id="searchHelp_OR" class="form-text text-muted">Wpisz słowa klucz, które mogą wystąpić.</small>
+
+  </div>
+  <div class="form-group">
+
+
+    <input type="text" class="form-control" id="AND_words" aria-describedby="searchHelp" placeholder="AND"  name="string_and">
+    <small id="searchHelp_AND" class="form-text text-muted">Wpisz słowa klucz, które muszą wystąpić.</small>
+
+  </div>
+  <div class="form-group">
+
+    <input type="text" class="form-control" id="NOT_words" aria-describedby="searchHelp" placeholder="NOT" name="string_not">
+    <small id="searchHelp_NOT" class="form-text text-muted">Wpisz słowa klucz, które nie mogą wystąpić.</small>
+
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block mb-4">Wyślij</button>
+
+
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Słowa</th>
+            <th scope="col">Ilość</th>
+        <tr>
+    </thead>
+    <tbody>
+        {% for key in result %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ result[key] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

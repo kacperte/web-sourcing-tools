@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Sourcer Tools Kit Starter{% endblock %}
+{% block title %} Sourcer Tools Kit{% endblock %}
 {% block head %}
 {{ super() }}
 
@@ -11,10 +11,11 @@
 <main role="main" class="container">
     <div class="row">
         <div class="col">
-            {{data.text|safe}}
+            {{data|safe}}
         </div>
     </div>
-</main><!-- /.container -->
+</main>
+<!-- /.container -->
 
 {{data.page}}
 

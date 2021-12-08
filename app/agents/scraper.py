@@ -45,7 +45,6 @@ class Scraper(CommonWords):
         self.password = password
         self.query = query
         self.n_pages = n_pages
-        self.login()
 
     def login(self) -> None:
         """
@@ -155,6 +154,7 @@ class Scraper(CommonWords):
         :return: None
         """
 
+        self.login()
         links = self.search_list()
         list_of_lists = []
         n_links = len(links)
@@ -167,92 +167,96 @@ class Scraper(CommonWords):
             self.scroll_down()
             self.loading_all_elements()
 
-            # Accomplishments
-            accomplishments_list = []
             try:
-                accomplishments = self.driver.find_elements(By.XPATH,
-                                                            "//li[""@class='pv-accomplishments-block__summary-list"
-                                                            "-item']")
-                for i in accomplishments:
-                    accomplishments_list.append(i.text)
-            except selenium.common.exceptions.NoSuchElementException:
-                pass
+                # Accomplishments
+                accomplishments_list = []
+                try:
+                    accomplishments = self.driver.find_elements(By.XPATH,
+                                                                "//li[""@class='pv-accomplishments-block__summary-list"
+                                                                "-item']")
+                    for i in accomplishments:
+                        accomplishments_list.append(i.text)
+                except selenium.common.exceptions.NoSuchElementException:
+                    pass
 
-            # Licences and certifications
-            licences_and_certifications = ''
-            try:
-                licences_and_certifications = self.driver.find_element(By.XPATH, "//li[""@class='pv"
-                                                                                 "-profile"
-                                                                                 "-section__sortable"
-                                                                                 "-item "
-                                                                                 "pv-certification"
-                                                                                 "-entity "
-                                                                                 "ember-view']").text
+                # Licences and certifications
+                licences_and_certifications = ''
+                try:
+                    licences_and_certifications = self.driver.find_element(By.XPATH, "//li[""@class='pv"
+                                                                                     "-profile"
+                                                                                     "-section__sortable"
+                                                                                     "-item "
+                                                                                     "pv-certification"
+                                                                                     "-entity "
+                                                                                     "ember-view']").text
 
-            except selenium.common.exceptions.NoSuchElementException:
-                pass
-            except IndexError:
-                pass
+                except selenium.common.exceptions.NoSuchElementException:
+                    pass
+                except IndexError:
+                    pass
 
-            # Name, gender, localization and headline
-            name = self.driver.find_element(By.XPATH, "//h1[@class='text-heading-xlarge "
+                # Name, gender, localization and headline
+                name = self.driver.find_element(By.XPATH, "//h1[@class='text-heading-xlarge "
                                                       "inline t-24 v-align-middle "
                                                       "break-words']").text
-            name = name.split()
-            gender = ''
-            if name[0].endswith('a') is True:
-                gender += 'F'
-            else:
-                gender += 'M'
-            localization = self.driver.find_element(By.XPATH,
-                                                    "//span[@class='text-body-small inline t-black--light "
-                                                    "break-words']").text
-            headline = self.driver.find_element(By.XPATH,
-                                                "//div[@class='text-body-medium break-words']").text
-            summary = self.clear_text(self.driver.find_element(By.XPATH,
-                                                               "//section[@class='pv-profile-section "
-                                                               "pv-about-section artdeco-card p5 mt4 "
-                                                               "ember-view']").text)
+                name = name.split()
+                gender = ''
+                if name[0].endswith('a') is True:
+                    gender += 'F'
+                else:
+                    gender += 'M'
 
-            # Education
-            schools = self.driver.find_elements(By.XPATH, "//li[@class='pv-profile-section__list-item "
-                                                          "pv-education-entity pv-profile-section__card-item "
-                                                          "ember-view']")
-            schools_info = []
-            for info in schools:
-                schools_info.append(self.clear_text(info.text))
+                localization = self.driver.find_element(By.XPATH,
+                                                        "//span[@class='text-body-small inline t-black--light "
+                                                        "break-words']").text
+                headline = self.driver.find_element(By.XPATH,
+                                                    "//div[@class='text-body-medium break-words']").text
+                summary = self.clear_text(self.driver.find_element(By.XPATH,
+                                                                   "//section[@class='pv-profile-section "
+                                                                   "pv-about-section artdeco-card p5 mt4 "
+                                                                   "ember-view']").text)
 
-            # Work experience
-            jobs = self.driver.find_elements(By.XPATH, "//li[@class='pv-entity__position-group-pager "
-                                                       "pv-profile-section__list-item ember-view']")
-            jobs_info = []
-            for info in jobs:
-                jobs_info.append(self.clear_text(info.text))
+                # Education
+                schools = self.driver.find_elements(By.XPATH, "//li[@class='pv-profile-section__list-item "
+                                                              "pv-education-entity pv-profile-section__card-item "
+                                                              "ember-view']")
+                schools_info = []
+                for info in schools:
+                    schools_info.append(self.clear_text(info.text))
 
-            # Skills
-            skills = self.driver.find_elements(By.XPATH,
-                                               "//p[@class='pv-skill-category-entity__name tooltip-container']")
-            skills_list = []
-            for skill in skills:
-                skills_list.append(skill.text)
+                # Work experience
+                jobs = self.driver.find_elements(By.XPATH, "//li[@class='pv-entity__position-group-pager "
+                                                           "pv-profile-section__list-item ember-view']")
+                jobs_info = []
+                for info in jobs:
+                    jobs_info.append(self.clear_text(info.text))
 
-            # Marge and clear text
-            profile_text = ' '.join(str(elem) for elem in jobs_info) + " " + \
-                           ' '.join(str(elem) for elem in schools_info) + " " +  \
-                           ' '.join(str(elem) for elem in skills_list) + " " +  \
-                           ' '.join(str(elem) for elem in accomplishments_list) + " " + \
-                           licences_and_certifications
+                # Skills
+                skills = self.driver.find_elements(By.XPATH,
+                                                   "//p[@class='pv-skill-category-entity__name tooltip-container']")
+                skills_list = []
+                for skill in skills:
+                    skills_list.append(skill.text)
 
-            final_text = self.clear_text(profile_text)
+                # Marge and clear text
+                profile_text = ' '.join(str(elem) for elem in jobs_info) + " " + \
+                               ' '.join(str(elem) for elem in schools_info) + " " +  \
+                               ' '.join(str(elem) for elem in skills_list) + " " +  \
+                               ' '.join(str(elem) for elem in accomplishments_list) + " " + \
+                               licences_and_certifications
 
-            # Adding values to the list of page than adding to the list of list
-            list_of_page.append(name[0])
-            list_of_page.append(name[1])
-            list_of_page.append(gender)
-            list_of_page.append(localization)
-            list_of_page.append(final_text)
-            list_of_lists.append(list_of_page)
+                final_text = self.clear_text(profile_text)
 
+                # Adding values to the list of page than adding to the list of list
+                list_of_page.append(name[0])
+                list_of_page.append(name[1])
+                list_of_page.append(gender)
+                list_of_page.append(localization)
+                list_of_page.append(final_text)
+                list_of_lists.append(list_of_page)
+
+            except:
+                pass
         # Scraped information from profile to csv
         df = pd.DataFrame(list_of_lists, columns=['firstname', 'lastname', 'gender', 'localization', 'profile_text'])
 
