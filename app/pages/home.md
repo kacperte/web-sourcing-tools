@@ -1,5 +1,4 @@
 <div>
-<center>
 <h1>Sourcer Tools Kit!  </h1>
 <br></br>
 <p>
@@ -9,5 +8,4 @@ Dostępne narzędzia:
 <p>
 Korzytaj z nich rozsądanie. 
 </p>
-</center>
 </div>

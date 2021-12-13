@@ -5,9 +5,9 @@ from fastapi.staticfiles import StaticFiles
 from os import getenv
 import pandas as pd
 from dotenv import load_dotenv
-from .agents.scraper import Scraper
-from .library.helpers import *
-from .agents.string_builder import string_builder
+from app.agents.scraper import Scraper
+from app.library.helpers import *
+from app.agents.string_builder import string_builder
 
 
 n = 2
