@@ -47,7 +47,7 @@ async def form_post(request: Request,
                     string_not: str = Form(...)):
 
     query = string_builder(OR=string_or, AND=string_and, NOT=string_not)
-    n_page = 10
+    n_page = 2
     scraper = Scraper(username=LOGIN,
                       password=PASS,
                       query=query,
