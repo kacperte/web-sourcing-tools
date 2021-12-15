@@ -57,3 +57,6 @@ async def form_post(request: Request,
     result_df = pd.DataFrame({"word": result.values(), "quantity": result.keys()})
 
     return templates.TemplateResponse("form.html", context={"request": request, "result": result})
+
+if __name__ == "__main__":
+    app.run()
