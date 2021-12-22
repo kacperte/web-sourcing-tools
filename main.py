@@ -10,7 +10,6 @@ from app.library.helpers import *
 from app.agents.string_builder import string_builder
 
 
-n = 2
 load_dotenv()
 LOGIN = getenv('LOGIN')
 PASS = getenv('PASS')
@@ -24,13 +23,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def home(request: Request):
     data = openfile("home.md")
     return templates.TemplateResponse("page.html", {"request": request, "data": data})
-
-"""
-@app.get("/common-words")
-def common(request: Request):
-    result = scraper.talent_mapping()
-    return templates.TemplateResponse('page.html', context={'request': request, 'data': result})
-"""
 
 
 @app.get("/common-words")
