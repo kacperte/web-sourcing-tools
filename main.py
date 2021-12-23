@@ -46,7 +46,6 @@ async def form_post(request: Request,
                       n_pages=n_page,
                       )
     result = scraper.talent_mapping()
-    result_df = pd.DataFrame({"word": result.values(), "quantity": result.keys()})
 
     return templates.TemplateResponse("form.html", context={"request": request, "result": result})
 

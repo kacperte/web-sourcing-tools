@@ -3,9 +3,6 @@
 <br></br>
 <p>
 Dostępne narzędzia: 
-<li>Generator słów kluczowych </li>
-</p>
-<p>
-Korzytaj z nich rozsądanie. 
+<li>Generator kluczowych słów </li>
 </p>
 </div>
