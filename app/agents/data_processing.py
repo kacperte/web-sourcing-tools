@@ -4,7 +4,6 @@ import string
 from nltk.probability import FreqDist
 
 
-
 class CommonWords:
     """ This class tokenize text, extract the most common words in text and build word cloud """
 
