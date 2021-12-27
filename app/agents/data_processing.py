@@ -1,10 +1,7 @@
-import json
-
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, RegexpTokenizer
 import string
 from nltk.probability import FreqDist
-from json2html import *
 
 
 
