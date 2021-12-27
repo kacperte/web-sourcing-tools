@@ -1,6 +1,7 @@
 import time
 import urllib
 import pandas as pd
+import os
 
 import selenium.common.exceptions
 from selenium import webdriver
@@ -26,9 +27,8 @@ class Scraper(CommonWords):
         super().__init__(quantity)
         chrome_options = Options()
         chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--start-maximized")
-        chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-notifications")
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
         chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
@@ -38,8 +38,8 @@ class Scraper(CommonWords):
         chrome_options.add_experimental_option(
             "prefs", prefs
         )
-        driver = webdriver.Chrome(r'C:\Users\kacpe\OneDrive\Pulpit\Python\Projekty\chromedriver.exe',
-                                  options=chrome_options)
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
         self.driver = driver
         self.username = username
         self.password = password
