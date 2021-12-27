@@ -3,7 +3,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from os import getenv
-import pandas as pd
 from dotenv import load_dotenv
 from app.agents.scraper import Scraper
 from app.library.helpers import *
