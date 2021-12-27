@@ -10,7 +10,6 @@ class CommonWords:
     def __init__(self, quantity: int) -> None:
         self.quantity = quantity
         self.stop = set(stopwords.words('english'))
-        self.stop.update(set(stopwords.words('polish')))
         punctuation = list(string.punctuation)
         self.stop.update(punctuation)
         self.text = ''
@@ -18,8 +17,9 @@ class CommonWords:
     def common_words_to_df(self, file) -> dict:
         """
         Tokenize words in text and extract the most common words
+        :param file: CSV file
         :param self:
-        :return: None
+        :return: dict Dictionary with the most common words in scraped LinkedIn profile
         """
 
         print('## Initzilize NLTK (Natural Language Toolkit)')
