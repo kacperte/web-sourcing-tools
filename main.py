@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, BackgroundTasks
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -7,11 +7,12 @@ from dotenv import load_dotenv
 from app.agents.scraper import Scraper
 from app.library.helpers import *
 from app.agents.string_builder import string_builder
+from tasks import scraper
 
 
 load_dotenv()
-LOGIN = getenv('LOGIN')
-PASS = getenv('PASS')
+LOGIN = getenv("LOGIN")
+PASS = getenv("PASS")
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -28,25 +29,25 @@ async def home(request: Request):
 def form_post(request: Request):
 
     result = ""
-    return templates.TemplateResponse('form.html', context={'request': request, 'result': result})
+    return templates.TemplateResponse(
+        "form.html", context={"request": request, "result": result}
+    )
 
 
 @app.post("/common-words")
-async def form_post(request: Request,
-                    string_or: str = Form(...),
-                    string_and: str = Form(...),
-                    string_not: str = Form(...)):
-
+async def form_post(
+    request: Request,
+    string_or: str = Form(...),
+    string_and: str = Form(...),
+    string_not: str = Form(...),
+):
     query = string_builder(OR=string_or, AND=string_and, NOT=string_not)
     n_page = 2
-    scraper = Scraper(username=LOGIN,
-                      password=PASS,
-                      query=query,
-                      n_pages=n_page,
-                      )
-    result = scraper.talent_mapping()
+    task = scraper.delay(LOGIN, PASS, query, n_page)
+    return templates.TemplateResponse(
+        "form.html", context={"request": request, "result": task}
+    )
 
-    return templates.TemplateResponse("form.html", context={"request": request, "result": result})
 
 if __name__ == "__main__":
     app.run()

@@ -5,14 +5,14 @@ from nltk.probability import FreqDist
 
 
 class CommonWords:
-    """ This class tokenize text, extract the most common words in text and build word cloud """
+    """This class tokenize text, extract the most common words in text and build word cloud"""
 
     def __init__(self, quantity: int) -> None:
         self.quantity = quantity
-        self.stop = set(stopwords.words('english'))
+        self.stop = set(stopwords.words("english"))
         punctuation = list(string.punctuation)
         self.stop.update(punctuation)
-        self.text = ''
+        self.text = ""
 
     def common_words_to_df(self, file) -> dict:
         """
@@ -22,22 +22,22 @@ class CommonWords:
         :return: dict Dictionary with the most common words in scraped LinkedIn profile
         """
 
-        print('## Initzilize NLTK (Natural Language Toolkit)')
-        print(f'## Prepering {self.quantity} most common words in text')
+        print("## Initzilize NLTK (Natural Language Toolkit)")
+        print(f"## Prepering {self.quantity} most common words in text")
 
         # Open csv file
         df = file
 
         # Marge text from df to variable (str)
         for word in df.profile_text.values:
-            self.text = self.text + word + ' '
+            self.text = self.text + word + " "
 
         # Tokenize text
-        tokenizer = RegexpTokenizer(r'\w+')
+        tokenizer = RegexpTokenizer(r"\w+")
         text = tokenizer.tokenize(self.text)
 
         # Tokenized text
-        text = ' '.join(word for word in text)
+        text = " ".join(word for word in text)
         tokenized_word = word_tokenize(text)
         tokenized_word = [word.lower() for word in tokenized_word]
         filtered_word = []
@@ -59,6 +59,6 @@ class CommonWords:
 
         # Select n words from dict - n is quantity variable in class
         most_common = fdist.most_common(self.quantity)
-        #json_file = json.dumps(dict(most_common))
-        #html_content = json2html.convert(json=json_file)
+        # json_file = json.dumps(dict(most_common))
+        # html_content = json2html.convert(json=json_file)
         return dict(most_common)

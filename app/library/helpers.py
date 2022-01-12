@@ -8,7 +8,5 @@ def openfile(filename):
         text = input_file.read()
 
     html = markdown.markdown(text)
-    data = {
-        "text": html
-    }
+    data = {"text": html}
     return data["text"]
