@@ -4,7 +4,6 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from os import getenv
 from dotenv import load_dotenv
-from app.agents.scraper import Scraper
 from app.library.helpers import *
 from app.agents.string_builder import string_builder
 from tasks import scraper
