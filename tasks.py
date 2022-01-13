@@ -4,7 +4,7 @@ from app.agents.scraper import Scraper
 
 app = Celery("scraper")
 app.conf.update(
-    BROKER_URL=os.environ.get["REDIS_URL"], CELERY_RESULT_BACKEND=os.environ.get["REDIS_URL"]
+    BROKER_URL=os.environ.get(["REDIS_URL"], CELERY_RESULT_BACKEND=os.environ.get["REDIS_URL"])
 )
 
 
