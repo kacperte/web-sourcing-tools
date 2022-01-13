@@ -2,16 +2,14 @@ from fastapi import FastAPI, Request, Form, BackgroundTasks
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from os import getenv
-from dotenv import load_dotenv
+import os
 from app.library.helpers import *
 from app.agents.string_builder import string_builder
 from tasks import scraper
 
 
-load_dotenv()
-LOGIN = getenv("LOGIN")
-PASS = getenv("PASS")
+LOGIN = os.environ.get("LOGIN")
+PASS = os.environ.get("PASS")
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
