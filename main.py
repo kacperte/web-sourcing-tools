@@ -23,7 +23,7 @@ async def home(request: Request):
 
 
 @app.post("/common-words")
-async def form_post(
+def form_post(
     request: Request,
     string_or: str = Form(...),
     string_and: str = Form(...),
