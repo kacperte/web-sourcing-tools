@@ -1,11 +1,12 @@
 import celery
 from os import getenv
+from app.agents.scraper import Scraper
 
 app = celery.Celery("scraper")
 app.conf.update(BROKER_URL=getenv("BROKER_URL"))
 
 
 @app.task
-def scraper(function, username, password, query, n_pages):
-    results = function(username, password, query, n_pages)
+def scraper(username, password, query, n_pages):
+    results = Scraper(username, password, query, n_pages)
     return results
