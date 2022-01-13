@@ -25,15 +25,6 @@ async def home(request: Request):
     return templates.TemplateResponse("page.html", {"request": request, "data": data})
 
 
-@app.get("/common-words")
-def form_post(request: Request):
-
-    result = ""
-    return templates.TemplateResponse(
-        "form.html", context={"request": request, "result": result}
-    )
-
-
 @app.post("/common-words")
 async def form_post(
     request: Request,
@@ -45,7 +36,16 @@ async def form_post(
     n_page = 2
     task = scraper.delay(LOGIN, PASS, query, n_page)
     return templates.TemplateResponse(
-        "form.html", context={"request": request, "result": "task"}
+        "form.html", context={"request": request, "result": "Processing"}
+    )
+
+
+@app.get("/common-words")
+def form_post(request: Request):
+
+    result = ""
+    return templates.TemplateResponse(
+        "form.html", context={"request": request, "result": result}
     )
 
 
