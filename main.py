@@ -1,8 +1,7 @@
-from fastapi import FastAPI, Request, Form, BackgroundTasks
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-import os
 from app.library.helpers import *
 from app.agents.string_builder import string_builder
 from tasks import scraper
@@ -33,7 +32,7 @@ def form_post(
     n_page = 2
     task = scraper.delay(LOGIN, PASS, query, n_page)
     return templates.TemplateResponse(
-        "form.html", context={"request": request, "result": 'test'}
+        "form.html", context={"request": request, "result": task.get()}
     )
 
 
