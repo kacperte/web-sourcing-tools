@@ -34,7 +34,7 @@ def form_post(
     task = scraper.delay(LOGIN, PASS, query, n_page)
     print("End")
     return templates.TemplateResponse(
-        "form.html", context={"request": request, "result": task.get()}
+        "form.html", context={"request": request, "result": "Proccesing"}
     )
 
 
