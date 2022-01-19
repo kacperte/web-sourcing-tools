@@ -11,7 +11,7 @@ app.conf.update(
 
 @app.task(name="scraper")
 def scraper(username, password, query, n_pages):
-    results = Scraper(username, password, query, n_pages)
+    results = Scraper(username, password, query, n_pages).talent_mapping()
     return results
 
 
