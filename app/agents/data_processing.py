@@ -61,4 +61,5 @@ class CommonWords:
         most_common = fdist.most_common(self.quantity)
         # json_file = json.dumps(dict(most_common))
         # html_content = json2html.convert(json=json_file)
+        print(most_common)
         return dict(most_common)
