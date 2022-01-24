@@ -32,7 +32,7 @@ def form_post(
     n_page = 2
     result = scraper.delay(LOGIN, PASS, query, n_page)
     return templates.TemplateResponse(
-        "form.html", context={"request": request, "result": result}
+        "form.html", context={"request": request, "result": result.get()}
     )
 
 
