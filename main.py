@@ -30,11 +30,9 @@ def form_post(
 ):
     query = string_builder(OR=string_or, AND=string_and, NOT=string_not)
     n_page = 2
-    print("Start")
-    task = scraper.delay(LOGIN, PASS, query, n_page)
-    print("End")
+    result = scraper.delay(LOGIN, PASS, query, n_page)
     return templates.TemplateResponse(
-        "form.html", context={"request": request, "result": "Proccesing"}
+        "form.html", context={"request": request, "result": result}
     )
 
 

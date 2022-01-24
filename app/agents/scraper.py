@@ -175,7 +175,7 @@ class Scraper(CommonWords):
         """
 
         self.login()
-        links = self.search_list()
+        links = ['https://www.linkedin.com/in/peter-graczykowski/?originalSubdomain=pl']
         list_of_lists = []
         n_links = len(links)
         print(f"## Profiles to scrap: {n_links}")
