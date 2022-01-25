@@ -307,8 +307,9 @@ class Scraper(CommonWords):
                 list_of_lists.append(list_of_page)
 
             except:
-                pass
+                print('Lipa')
         # Scraped information from profile to csv
+        print(list_of_lists)
         df = pd.DataFrame(
             list_of_lists,
             columns=["firstname", "lastname", "gender", "localization", "profile_text"],
